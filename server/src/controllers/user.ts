@@ -5,8 +5,6 @@ import bcrypt from "bcrypt";
 export const addUser = async (req: Request, res: Response) => {
   try {
     const requestData = req.body;
-
-    // Check if a user with the same email already exists
     const existingUser = await UserModel.findOne({ email: requestData.email });
     const hashedPassword = await bcrypt.hash(requestData.password, 10);
     if (existingUser) {
@@ -53,10 +51,33 @@ export const getAuthUser = async (req: Request, res: Response) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        image: user.image,
+        profession: user.profession,
       },
     });
   } catch (error) {
     console.error("Authentication failed:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const updateFields = req.body;
+
+  try {
+    const existingUser = await UserModel.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    for (const [key, value] of Object.entries(updateFields)) {
+      existingUser[key] = value;
+    }
+    const updatedUser = await existingUser.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

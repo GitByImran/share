@@ -3,7 +3,12 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import { addUser, getAuthUser, getUser } from "./controllers/user";
+import { addUser, getAuthUser, getUser, updateUser } from "./controllers/user";
+import {
+  addUserData,
+  getUserData,
+  updateUserData,
+} from "./controllers/userData";
 
 // config
 
@@ -23,11 +28,17 @@ app.get("/api", (req: Request, res: Response) => {
   res.json("connected");
 });
 
-// ** user
+// ** user routes
 
 app.post("/api/users", addUser);
 app.get("/api/users", getUser);
 app.post("/api/auth", getAuthUser);
+app.put("/api/users/:userId", updateUser);
+
+// ** userData routes
+app.post("/api/userdatas", addUserData);
+app.get("/api/userdatas", getUserData);
+app.put("/api/userdatas/:userDataId", updateUserData);
 
 // connect database
 

@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     default: "",
     required: false,
   },
-  Profession: {
+  profession: {
     type: String,
     default: "",
     required: false,
