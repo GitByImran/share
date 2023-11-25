@@ -9,9 +9,11 @@ import MediaMenus from "./mediamenus";
 import Notification from "../user-routes/notification";
 import { useAuth } from "../authentication/authContext";
 import AuthButton from "./authButton";
+import { useUserData } from "../contexts/userDataContext";
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
+  const { currUserData } = useUserData();
   const [showHandleMenu, setShowHandleMenu] = useState<boolean>(true);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [showNotificationModal, setShowNotificationModal] =
@@ -45,9 +47,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="mb-20">
       <div
-        className={`w-full border-b-2 fixed z-50 top-0 transition-all  ${
-          scrolling ? "bg-white" : ""
-        }`}
+        className={`w-full border-b-2 fixed z-50 top-0 transition-all bg-white`}
       >
         <nav className="custom-width p-5 flex items-center justify-between gap-5">
           <Link href="/" className="flex items-center gap-2">

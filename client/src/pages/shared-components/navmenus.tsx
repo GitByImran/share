@@ -56,13 +56,15 @@ const NavMenus: React.FC<NavProps> = ({
             key={index}
             onClick={handleMenuClick}
             className={`flex items-start gap-3 text-gray-700 md:hover:bg-transparent hover:bg-gray-100 ${
-              router.pathname === menu.goto ? "text-red-500" : ""
+              router.pathname === menu.goto ? "text-blue-700" : ""
             }`}
           >
             {menu.label.toLowerCase() === "notification" ? (
               <div className="sm:flex gap-2 hidden">
                 <button
-                  className="text-2xl mt-0 relative"
+                  className={`text-2xl mt-0 relative ${
+                    showNotificationModal && "text-blue-700"
+                  }`}
                   onClick={(e) => handleNotificationModal(e)}
                 >
                   {menu.icon}

@@ -11,7 +11,7 @@ const Setup: React.FC = () => {
         <h2 className="text-lg font-semibold">Account Centre</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/profile-setup"
             className="bg-gray-100 hover:bg-gray-200 p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">

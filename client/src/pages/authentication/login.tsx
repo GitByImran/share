@@ -14,6 +14,7 @@ const Login: React.FC = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevData) => ({
@@ -30,13 +31,12 @@ const Login: React.FC = () => {
       console.log("Authentication successful");
       router.push("/components/user-home");
     } catch (error: any) {
+      setError("Invalid email or password");
       console.error("Authentication failed:", error.message);
     }
   };
 
   const handleGoogleLogin = () => {};
-
-  console.log(user);
 
   return (
     <div>
@@ -80,6 +80,9 @@ const Login: React.FC = () => {
             <button type="submit" className="bg-black text-white p-2 rounded">
               Continue
             </button>
+            {error && (
+              <p className="text-red-500 text-md text-center mt-2">{error}</p>
+            )}
           </form>
         </div>
         <h2 className="mt-10 text-center text-xl font-semibold text-gray-700">

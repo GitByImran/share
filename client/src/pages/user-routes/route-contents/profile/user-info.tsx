@@ -5,8 +5,10 @@ import { FaTwitterSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { ImConnection } from "react-icons/im";
 import Link from "next/link";
+import { useUserData } from "@/pages/contexts/userDataContext";
 
 const UserInfo: React.FC = () => {
+  const { currUserData } = useUserData();
   return (
     <section>
       <div className="left-part flex justify-between p-5 border rounded-xl shadow text-gray-700">
@@ -16,7 +18,7 @@ const UserInfo: React.FC = () => {
               <p className="w-fit text-xl rotate-45">
                 <ImConnection />
               </p>
-              <p className="text-">Followed by 65 people</p>
+              <p className="text-">Followed by 0 people</p>
             </div>
             <div className="flex flex-col items-start gap-2">
               <Link href="" className="flex items-center gap-2">
@@ -24,7 +26,9 @@ const UserInfo: React.FC = () => {
                   <FaLinkedin />
                 </span>
                 <span className="text-cyan-700 font-semibold hover:underline">
-                  in/stiphensmith
+                  {currUserData?.socialLinks?.linkedin
+                    ? (currUserData?.socialLinks?.linkedin).split("/")[4]
+                    : "Not found"}
                 </span>
               </Link>
               <Link href="" className="flex items-center gap-2">
@@ -32,7 +36,9 @@ const UserInfo: React.FC = () => {
                   <FaTwitterSquare />
                 </span>
                 <span className="text-cyan-700 font-semibold hover:underline">
-                  x/stiphensmith
+                  {currUserData?.socialLinks?.twitter
+                    ? (currUserData?.socialLinks?.twitter).split("/")[3]
+                    : "Not found"}
                 </span>
               </Link>
               <Link href="" className="flex items-center gap-2">
@@ -40,7 +46,9 @@ const UserInfo: React.FC = () => {
                   <FaFacebookSquare />
                 </span>
                 <span className="text-cyan-700 font-semibold hover:underline">
-                  fb/stiphensmith
+                  {currUserData?.socialLinks?.facebook
+                    ? (currUserData?.socialLinks?.facebook).split("/")[3]
+                    : "Not found"}
                 </span>
               </Link>
               <Link href="" className="flex items-center gap-2">
@@ -48,7 +56,9 @@ const UserInfo: React.FC = () => {
                   <SlGlobe />
                 </span>
                 <span className="text-cyan-700 font-semibold hover:underline">
-                  stiphensmith.info
+                  {currUserData?.socialLinks?.website
+                    ? currUserData?.socialLinks?.website.split("/")[2]
+                    : "Not found"}
                 </span>
               </Link>
             </div>

@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, {
   createContext,
   useContext,
@@ -11,6 +12,11 @@ interface AuthContextProps {
   login: (formData: LoginForm) => Promise<void>;
   register: (formData: RegisterForm) => Promise<void>;
   logout: () => void;
+  uploadImage: (
+    file: File,
+    userId: string | null,
+    userDataId: string | null
+  ) => Promise<string>;
 }
 
 interface User {
@@ -18,6 +24,7 @@ interface User {
   name: string;
   email: string;
   image: string;
+  profession: string;
 }
 
 interface LoginForm {
@@ -38,6 +45,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+
+  console.log(user);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -78,12 +87,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        setUser(responseData);
-        localStorage.setItem("user", JSON.stringify(responseData));
-      } else {
+      if (!response.ok) {
         throw new Error("Registration failed");
+      }
+
+      const responseData = await response.json();
+      setUser(responseData);
+      localStorage.setItem("user", JSON.stringify(responseData));
+
+      const userData = {
+        profile: {
+          name: responseData.name,
+          email: responseData.email,
+          image: responseData.image,
+        },
+      };
+
+      const userDataResponse = await fetch(
+        "http://localhost:8080/api/userdatas",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+
+      if (!userDataResponse.ok) {
+        throw new Error("Failed to send data to api/userdatas");
       }
     } catch (error: any) {
       throw new Error(`Registration failed: ${error.message}`);
@@ -95,7 +127,88 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.removeItem("user");
   };
 
-  const contextValue = { user, login, register, logout };
+  const uploadImage = async (
+    file: File,
+    userId: string | null,
+    userDataId: string | null
+  ): Promise<string> => {
+    try {
+      const apiKey = "f6b7ed31eea5a21e9e00f71286c18481";
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Upload image to ImgBB
+      const response = await fetch(
+        "https://api.imgbb.com/1/upload?key=" + apiKey,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Image upload failed");
+      }
+
+      const responseData = await response.json();
+      const imageUrl = responseData.data.url;
+
+      try {
+        // Update user image in the users endpoint
+        const updateResponse = await fetch(
+          `http://localhost:8080/api/users/${userId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image: imageUrl,
+            }),
+          }
+        );
+
+        if (!updateResponse.ok) {
+          throw new Error("Failed to update user image in the database");
+        }
+
+        console.log("User image updated in the database");
+
+        // Update user image in the userdatas endpoint
+        const userDataUpdateResponse = await fetch(
+          `http://localhost:8080/api/userdatas/${userDataId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "profile.image": imageUrl,
+            }),
+          }
+        );
+
+        if (!userDataUpdateResponse.ok) {
+          throw new Error("Failed to update user image in userdatas");
+        }
+
+        console.log("User image updated in userdatas");
+      } catch (updateError) {
+        console.error(
+          "Failed to update user image in the database",
+          updateError
+        );
+        throw new Error("Image upload failed");
+      }
+
+      return imageUrl;
+    } catch (error: any) {
+      console.error("Error during image upload:", error.message);
+      throw new Error("Image upload failed");
+    }
+  };
+
+  const contextValue = { user, login, register, logout, uploadImage };
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

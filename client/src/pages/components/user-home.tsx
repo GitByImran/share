@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import Search from "@/pages/shared-components/search";
 import Link from "next/link";
 import { useAuth } from "../authentication/authContext";
+import { useUserData } from "../contexts/userDataContext";
 
 const Posts = [
   {
@@ -61,6 +62,7 @@ const Posts = [
 
 const UserHomePage = () => {
   const { user } = useAuth();
+  const { currUserData } = useUserData();
   const [increaseArea, setIncreaseArea] = useState<boolean>(false);
   const [showMoreForPost, setShowMoreForPost] = useState<number | null>(null);
 
@@ -84,17 +86,27 @@ const UserHomePage = () => {
       <div className="custom-width px-5">
         <main className="grid grid-cols-12 gap-5 text-gray-700">
           <div className="col-span-12 md:col-span-4 flex flex-col gap-5">
-            <div className=" border rounded-lg h-fit p-5 ">
+            <div className="border rounded-lg h-fit p-5 ">
               <form>
-                <div className="flex items-start gap-3">
-                  <Image
-                    src="/images.jpg"
-                    alt=""
-                    height={300}
-                    width={300}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                  <div className="w-full flex flex-col gap-2">
+                <div className="flex gap-3">
+                  <div
+                    className="h-10 w-10 rounded-full overflow-hidden border"
+                    id="current-user-profile"
+                  >
+                    <Image
+                      src={
+                        currUserData?.profile?.image
+                          ? currUserData?.profile?.image
+                          : "/images.png"
+                      }
+                      alt=""
+                      height={1000}
+                      width={1000}
+                      layout="fixed"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-grow flex-col gap-2">
                     {increaseArea ? (
                       <textarea
                         name="post"
