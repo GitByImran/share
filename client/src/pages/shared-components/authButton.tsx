@@ -1,9 +1,11 @@
 import React from "react";
 import { useAuth } from "../authentication/authContext";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const AuthButton = () => {
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
 
   const handleUserLogOut = () => {
     logout();
@@ -14,11 +16,11 @@ const AuthButton = () => {
     return (
       <Link
         href="/authentication/login"
-        className="h-10 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200 hidden sm:flex justify-center items-center"
+        className={`h-10 rounded-md overflow-hidden border justify-center items-center ${
+          theme === "dark" ? "text-black  bg-white" : "text-white"
+        }`}
       >
-        <span className="text-xl capitalize font-semibold px-3 text-gray-700">
-          Login
-        </span>
+        <span className="text-xl capitalize font-semibold px-3">Login</span>
       </Link>
     );
   }
@@ -26,7 +28,9 @@ const AuthButton = () => {
   // Render a button for logout when user is logged in
   return (
     <button
-      className="h-10 text-xl capitalize font-semibold px-3 text-gray-700 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200 hidden sm:flex justify-center items-center"
+      className={`h-10 text-xl capitalize font-semibold px-3 rounded-md overflow-hidden border justify-center items-center ${
+        theme === "dark" ? "text-black bg-white" : "text-black"
+      }`}
       onClick={handleUserLogOut}
     >
       Logout

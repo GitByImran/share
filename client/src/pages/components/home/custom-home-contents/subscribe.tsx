@@ -1,6 +1,6 @@
 import React from "react";
 
-const Subscribe = () => {
+const Subscribe: React.FC = () => {
   return (
     <div>
       <div className="pb-20 text-gray-700 flex flex-col gap-10 items-center">

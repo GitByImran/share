@@ -3,16 +3,18 @@ import { BsFillPostcardFill } from "react-icons/bs";
 import { HiUserGroup } from "react-icons/hi";
 import Link from "next/link";
 import React from "react";
+import { useTheme } from "next-themes";
 
 const Access: React.FC = () => {
+  const { theme } = useTheme();
   return (
-    <section className="text-gray-700">
+    <section className={`${theme === "dark" ? "text-white" : "text-black"}`}>
       <div className="border rounded-lg shadow p-5 flex flex-col gap-5">
         <h2 className="text-lg font-semibold">Accessibility</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <Link
             href=""
-            className="bg-gray-100 hover:bg-gray-200 p-5 rounded-lg"
+            className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
               <span className="text-7xl text-cyan-700">
@@ -29,7 +31,7 @@ const Access: React.FC = () => {
           </Link>
           <Link
             href=""
-            className="bg-gray-100 hover:bg-gray-200 p-5 rounded-lg"
+            className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
               <span className="text-7xl text-emerald-500">
@@ -43,7 +45,7 @@ const Access: React.FC = () => {
           </Link>
           <Link
             href=""
-            className="bg-gray-100 hover:bg-gray-200 p-5 rounded-lg"
+            className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
               <span className="text-7xl" style={{ color: "#C27781" }}>

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "./authContext";
 
 const Login: React.FC = () => {
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",

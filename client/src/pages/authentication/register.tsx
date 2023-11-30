@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "./authContext";
+import moment from "moment";
 
 const Register: React.FC = () => {
   const { register } = useAuth();
@@ -15,6 +16,7 @@ const Register: React.FC = () => {
     email: "",
     password: "",
     rePassword: "",
+    registered: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +38,7 @@ const Register: React.FC = () => {
         email: "",
         password: "",
         rePassword: "",
+        registered: "",
       });
       router.push("/authentication/login");
     } catch (error: any) {

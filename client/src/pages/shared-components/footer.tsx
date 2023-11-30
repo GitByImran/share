@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import MediaMenus from "./mediamenus";
+import { useTheme } from "next-themes";
 
-const Footer = () => {
+const Footer: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <div>
       <footer className="">
@@ -12,7 +14,9 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               <div className="h-12 w-12 overflow-hidden">
                 <Image
-                  src="/logo-main.png"
+                  src={
+                    theme === "dark" ? "/logo-secondary.png" : "/logo-main.png"
+                  }
                   alt="logo-main"
                   height={300}
                   width={300}
@@ -33,7 +37,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <center className="bg-gray-50">
+      <center className="border-t">
         <div className="custom-width text-lg p-5 flex flex-wrap justify-center items-center gap-2">
           Community by
           <Link href="/" className="text-cyan-700 mt-.5">

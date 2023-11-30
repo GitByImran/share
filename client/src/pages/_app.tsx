@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { AuthProvider } from "./authentication/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserDataProvider } from "./contexts/userDataContext";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 const queryClient = new QueryClient();
 
@@ -21,17 +22,19 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <UserDataProvider>
-            {restrictedForNavbarFooter.includes(router.pathname) ? (
-              <>
-                <Component {...pageProps} />
-              </>
-            ) : (
-              <>
-                <Navbar />
-                <Component {...pageProps} />
-                <Footer />
-              </>
-            )}
+            <NextThemesProvider>
+              {restrictedForNavbarFooter.includes(router.pathname) ? (
+                <>
+                  <Component {...pageProps} />
+                </>
+              ) : (
+                <>
+                  <Navbar />
+                  <Component {...pageProps} />
+                  <Footer />
+                </>
+              )}
+            </NextThemesProvider>
           </UserDataProvider>
         </AuthProvider>
       </QueryClientProvider>

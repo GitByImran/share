@@ -8,7 +8,7 @@ const UnderConstruction = () => {
     router.back();
   };
   return (
-    <div className="h-48 w-full flex flex-col justify-center items-center text-gray-700">
+    <div className="h-48 w-full flex flex-col justify-center items-center">
       <span className="text-5xl">
         <IoConstruct />
       </span>

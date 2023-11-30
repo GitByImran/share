@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import React, {
   createContext,
   useContext,
@@ -24,7 +23,7 @@ interface User {
   name: string;
   email: string;
   image: string;
-  profession: string;
+  registered: string;
 }
 
 interface LoginForm {
@@ -45,8 +44,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-
-  console.log(user);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -69,6 +66,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         const responseData = await response.json();
         setUser(responseData.user);
         localStorage.setItem("user", JSON.stringify(responseData.user));
+        localStorage.setItem("token", responseData.token);
       } else {
         throw new Error("Invalid email or password");
       }
@@ -92,6 +90,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       }
 
       const responseData = await response.json();
+
       setUser(responseData);
       localStorage.setItem("user", JSON.stringify(responseData));
 
@@ -100,6 +99,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           name: responseData.name,
           email: responseData.email,
           image: responseData.image,
+          registered: responseData.registered,
         },
       };
 
@@ -125,6 +125,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   const uploadImage = async (

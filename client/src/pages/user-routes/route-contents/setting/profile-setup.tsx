@@ -102,11 +102,13 @@ const ProfileSetup: React.FC = () => {
         address: formData.address || currUserData?.profile.address,
       };
       const updatedSocialData = {
-        ...currUserData?.socialLinks,
-        linkedin: formData.linkedin || currUserData?.socialLinks.linkedin,
-        twitter: formData.twitter || currUserData?.socialLinks.twitter,
-        facebook: formData.facebook || currUserData?.socialLinks.facebook,
-        website: formData.website || currUserData?.socialLinks.website,
+        ...(currUserData?.socialLinks || {}),
+        linkedin:
+          formData.linkedin || currUserData?.socialLinks?.linkedin || "",
+        twitter: formData.twitter || currUserData?.socialLinks?.twitter || "",
+        facebook:
+          formData.facebook || currUserData?.socialLinks?.facebook || "",
+        website: formData.website || currUserData?.socialLinks?.website || "",
       };
 
       const updatedData = {

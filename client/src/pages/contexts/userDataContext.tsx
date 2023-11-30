@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 const API_ENDPOINT = "http://localhost:8080/api/userdatas";
 
 interface UserDataContextProps {
   userData: any;
   currUserData: any | null;
+  allPosts: any | [];
   refetch: () => void;
   saveUserData: (newUserData: any) => Promise<void>;
   updateUserData: (updatedUserData: any) => Promise<void>;
@@ -21,11 +23,16 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [currUserData, setCurrUserData] = useState<any | null>(null);
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   // Fetch user data
   const { data: userData, refetch } = useQuery({
     queryKey: ["userData"],
-    queryFn: () => fetch(API_ENDPOINT).then((res) => res.json()),
+    queryFn: () =>
+      fetch(API_ENDPOINT, {
+        headers: {
+          Authorization: `bearer ${localStorage.getItem("token") || ""}`,
+        },
+      }).then((res) => res.json()),
   });
 
   // Save user data
@@ -60,7 +67,8 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
           return null;
         }
       } catch (error: any) {
-        throw new Error(`Error retrieving user data: ${error.message}`);
+        router.push("/authentication/login");
+        // throw new Error(`Error retrieving user data: ${error.message}`);
       }
     };
 
@@ -97,9 +105,20 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const { data: allPosts } = useQuery({
+    queryKey: ["allPosts"],
+    queryFn: () =>
+      fetch("http://localhost:8080/api/userpostdatas", {
+        headers: {
+          Authorization: `bearer ${localStorage.getItem("token") || ""}`,
+        },
+      }).then((res) => res.json()),
+  });
+
   const contextValue: UserDataContextProps = {
     userData,
     currUserData,
+    allPosts,
     refetch,
     saveUserData,
     updateUserData,

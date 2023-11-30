@@ -11,7 +11,7 @@ const UserInfo: React.FC = () => {
   const { currUserData } = useUserData();
   return (
     <section>
-      <div className="left-part flex justify-between p-5 border rounded-xl shadow text-gray-700">
+      <div className="left-part flex justify-between p-5 border rounded-xl shadow ">
         <div>
           <div>
             <div className="flex items-center gap-2 mb-1">

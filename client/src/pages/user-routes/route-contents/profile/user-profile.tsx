@@ -3,17 +3,16 @@ import { HiOutlineBriefcase } from "react-icons/hi";
 import { IoLocationSharp } from "react-icons/io5";
 import Image from "next/image";
 import React from "react";
-import Link from "next/link";
 import { useAuth } from "@/pages/authentication/authContext";
 import { useUserData } from "@/pages/contexts/userDataContext";
 
 const UserProfile: React.FC = () => {
   const { user } = useAuth();
   const { currUserData } = useUserData();
-  console.log(currUserData.profile.image);
+  console.log(currUserData);
   return (
     <section>
-      <div className="top-part flex flex-wrap gap-5 justify-between items-center p-5 border rounded-xl shadow text-gray-700">
+      <div className="top-part flex flex-wrap gap-5 justify-between items-center p-5 border rounded-xl shadow">
         <div className="flex items-center gap-5">
           {!user || !currUserData ? (
             <div className="h-24 w-24 rounded-full bg-gray-200"></div>
@@ -69,7 +68,10 @@ const UserProfile: React.FC = () => {
               <HiClock />
             </span>
             {/* todo : here date will be showed as user registered */}
-            <span className="font-semibold">Not Set</span>
+            <span className="font-semibold">
+              {" "}
+              {user?.registered ? user?.registered : "Not found"}
+            </span>
           </p>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React from "react";
-import Banner from "./contents/banner";
-import WhyToUs from "./contents/why";
-import About from "./contents/about";
-import Subscribe from "./contents/subscribe";
+import Banner from "./custom-home-contents/banner";
+import WhyToUs from "./custom-home-contents/why";
+import About from "./custom-home-contents/about";
+import Subscribe from "./custom-home-contents/subscribe";
 
 const CustomHomePage: React.FC = () => {
   return (

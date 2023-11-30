@@ -3,7 +3,7 @@ import { FaSlideshare } from "react-icons/fa";
 import React from "react";
 import Link from "next/link";
 
-const Banner = () => {
+const Banner: React.FC = () => {
   return (
     <div id="banner">
       <main className="py-32 flex flex-col items-center justify-center relative">
