@@ -21,6 +21,9 @@ const UserDataSchema = new mongoose.Schema({
     address: {
       type: String,
     },
+    registered: {
+      type: String,
+    },
   },
   socialLinks: {
     linkedin: {

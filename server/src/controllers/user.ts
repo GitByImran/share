@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const addUser = async (req: Request, res: Response) => {
   try {
@@ -32,6 +35,7 @@ export const getUser = async (req: Request, res: Response) => {
 export const getAuthUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    const secret = process.env.SECRET || "";
 
     const user = await UserModel.findOne({ email });
 
@@ -45,6 +49,12 @@ export const getAuthUser = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
+    const token = jwt.sign({ id: user.id, email: user.email }, secret, {
+      expiresIn: "2 days",
+    });
+
+    console.log(token);
+
     res.status(200).json({
       message: "Authentication successful",
       user: {
@@ -52,8 +62,9 @@ export const getAuthUser = async (req: Request, res: Response) => {
         name: user.name,
         email: user.email,
         image: user.image,
-        profession: user.profession,
+        registered: user.registered,
       },
+      token,
     });
   } catch (error) {
     console.error("Authentication failed:", error);
