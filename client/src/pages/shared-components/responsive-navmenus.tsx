@@ -58,18 +58,12 @@ const ResponsiveNavmenus: React.FC = () => {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button
-            variant="outline"
-            className={`${
-              theme === "dark" ? "bg-white text-black" : ""
-            } h-10 w-10 rounded-md overflow-hidden flex justify-center items-center transition-all duration-300`}
-            onClick={handleShowNavmenu}
-          >
-            <span className="text-xl rotate-180">
-              {showHandleMenu ? <Menu /> : <ListX />}
-            </span>
-          </Button>
+        <DropdownMenuTrigger
+          className={`${
+            theme === "dark" ? "bg-white text-black" : "text-black"
+          } h-10 w-10 border rounded-md overflow-hidden flex justify-center items-center transition-all duration-300`}
+        >
+          <Menu />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="block md:hidden">
           {navmenus.map((menu, index) => (

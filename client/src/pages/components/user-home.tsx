@@ -13,9 +13,6 @@ const UserHomePage: React.FC = () => {
         <main className="grid grid-cols-12 gap-5 text-gray-700">
           <div className="col-span-12 md:col-span-4 flex flex-col gap-5">
             <CreatePost />
-            <div className="border rounded-lg h-fit p-5 hidden md:block">
-              <Search />
-            </div>
           </div>
           <div className="col-span-12 md:col-span-8 overflow-hidden">
             <ShowPosts />

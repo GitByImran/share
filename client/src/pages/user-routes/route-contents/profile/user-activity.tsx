@@ -18,7 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, SlidersHorizontal } from "lucide-react";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 
 const UserActivity: React.FC = () => {
   const { user } = useAuth();
@@ -117,47 +118,39 @@ const UserActivity: React.FC = () => {
               Activities
             </p>
             <div className="relative">
-              <button
-                className={`flex items-center gap-1 border rounded-md px-3 py-1`}
-                onClick={handleShowFilterOptions}
-              >
-                <span className="mt-1" style={{ transform: "scaleX(-1)" }}>
-                  <GrSort />
-                </span>
-                <span className="text-lg font-semibold">
-                  {" "}
-                  {selectedFilter ? selectedFilter : "Filter"}
-                </span>
-              </button>
-
-              {showFilterOption && (
-                <div className="absolute z-20 w-36 right-0 mt-5 bg-white shadow-lg rounded-md overflow-hidden border px-5 py-2">
-                  <button
-                    onClick={() => setSelectedFilter(null)}
-                    className="text-md font-semibold hover:bg-gray-100 hover:w-full py-1"
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="flex gap-2 items-center text-lg"
                   >
-                    Most Recent
-                  </button>
-                  <button
-                    onClick={() => setSelectedFilter("This month")}
-                    className="text-md font-semibold hover:bg-gray-100 hover:w-full py-1"
-                  >
-                    This month
-                  </button>
-                  <button
-                    onClick={() => setSelectedFilter("This year")}
-                    className="text-md font-semibold hover:bg-gray-100 hover:w-full py-1"
-                  >
-                    This year
-                  </button>
-                  <button
-                    onClick={() => setSelectedFilter("1 year ago")}
-                    className="text-md font-semibold hover:bg-gray-100 hover:w-full py-1"
-                  >
-                    1 year ago
-                  </button>
-                </div>
-              )}
+                    <SlidersHorizontal size={15} className="mt-1" />
+                    {selectedFilter ? selectedFilter : "Filter"}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={() => setSelectedFilter(null)}>
+                      Most Recent
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setSelectedFilter("This month")}
+                    >
+                      This month
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setSelectedFilter("This year")}
+                    >
+                      This year
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setSelectedFilter("1 year ago")}
+                    >
+                      1 year ago
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>

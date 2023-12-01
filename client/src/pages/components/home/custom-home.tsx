@@ -3,6 +3,7 @@ import Banner from "./custom-home-contents/banner";
 import WhyToUs from "./custom-home-contents/why";
 import About from "./custom-home-contents/about";
 import Subscribe from "./custom-home-contents/subscribe";
+import { ModeToggle } from "@/pages/shared-components/theme-toggler";
 
 const CustomHomePage: React.FC = () => {
   return (

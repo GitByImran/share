@@ -14,24 +14,22 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { useTheme } from "next-themes";
 
 const Notification: React.FC = () => {
-  const [showNotificationModal, setShowNotificationModal] =
-    useState<boolean>(false);
   const { theme } = useTheme();
-  const handleNotificationModal = (e: any) => {
-    e.preventDefault();
-    setShowNotificationModal(!showNotificationModal);
-  };
 
   return (
     <main>
       <Sheet>
         <div className="flex gap-2">
           <SheetTrigger asChild>
-            <Button variant="outline" className="relative">
-              <span className={`text-xl ${theme === "dark" && "text-black"}`}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="relative dark:bg-white dark:text-black"
+            >
+              <span className={`text-xl`}>
                 <IoNotificationsOutline />
               </span>
-              <span className="absolute -left-2 -top-2 bg-red-500 text-white h-6 w-6 rounded-full text-sm flex items-center justify-center">
+              <span className="absolute -left-1 -top-3 bg-red-500 text-white h-6 w-6 rounded-full text-sm flex items-center justify-center">
                 0
               </span>
             </Button>

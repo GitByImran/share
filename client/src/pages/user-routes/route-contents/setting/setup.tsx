@@ -13,7 +13,7 @@ const Setup: React.FC = () => {
         <h2 className="text-lg font-semibold">Account Centre</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <Link
-            href="/user-routes/route-contents/setting/profile-setup"
+            href="/user-routes/route-contents/setting/manage-profile"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
@@ -30,7 +30,7 @@ const Setup: React.FC = () => {
             </div>
           </Link>
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/manage-privacy"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
@@ -47,7 +47,7 @@ const Setup: React.FC = () => {
             </div>
           </Link>
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/manage-verifications"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">

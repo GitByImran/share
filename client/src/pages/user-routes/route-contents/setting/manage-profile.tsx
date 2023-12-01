@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useUserData } from "@/pages/contexts/userDataContext";
 import Swal from "sweetalert2";
 
-const ProfileSetup: React.FC = () => {
+const ManageProfile: React.FC = () => {
   const { user, uploadImage } = useAuth();
   const { currUserData, refetch, updateUserData } = useUserData();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -338,4 +338,4 @@ const ProfileSetup: React.FC = () => {
   );
 };
 
-export default ProfileSetup;
+export default ManageProfile;

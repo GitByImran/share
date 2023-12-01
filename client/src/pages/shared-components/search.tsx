@@ -1,26 +1,50 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { SearchIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import React from "react";
-import { CgSearch } from "react-icons/cg";
 
-const Search = () => {
+const Search: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <div>
-      <div className="rounded-md overflow-hidden">
-        <div className="border flex overflow-hidden rounded-md">
-          <input
-            type="text"
-            placeholder="search something ..."
-            className={`border-none outline-none w-full px-5 py-2`}
-          />
-          <button className="search px-2 text-xl ">
-            <CgSearch />
-          </button>
-        </div>
-        {/*  <div className="border md:bg-transparent bg-white py-2 px-5 mt-2 rounded-md overflow-hidden flex flex-col gap-2">
-          <Link href="" className="truncate md:w-full w-48">
-            Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.
-          </Link>
-        </div> */}
-      </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="text-black dark:bg-white dark:text-black"
+          >
+            <SearchIcon
+              size={18}
+              strokeWidth={2}
+              className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all"
+            />
+          </Button>
+        </DialogTrigger>
+
+        <DialogContent
+          className={`sm:max-w-[425px] ${
+            theme === "dark" && "bg-black text-white"
+          }`}
+        >
+          <DialogHeader>
+            <div>
+              <input
+                type="text"
+                className="w-full mt-5 py-2 px-3 bg-transparent border rounded"
+                placeholder="Write your search ..."
+              />
+            </div>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

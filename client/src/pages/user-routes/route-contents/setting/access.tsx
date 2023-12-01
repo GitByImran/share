@@ -13,7 +13,7 @@ const Access: React.FC = () => {
         <h2 className="text-lg font-semibold">Accessibility</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/manage-groups"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
@@ -30,7 +30,7 @@ const Access: React.FC = () => {
             </div>
           </Link>
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/manage-posts"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">
@@ -44,7 +44,7 @@ const Access: React.FC = () => {
             </div>
           </Link>
           <Link
-            href=""
+            href="/user-routes/route-contents/setting/manage-connections"
             className="border-2 hover:bg-gray-50 hover:text-black p-5 rounded-lg"
           >
             <div className="flex flex-col items-start gap-3">

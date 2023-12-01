@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import NavMenus from "./navmenus";
 import { useRouter } from "next/router";
 import ResponsiveNavmenus from "./responsive-navmenus";
+import Search from "./search";
 
 const Navbar: React.FC = () => {
   const { theme } = useTheme();
@@ -35,14 +36,11 @@ const Navbar: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  console.log(theme);
 
   return (
     <div className="sticky top-0 z-50 ">
-      <div
-        className={`w-full shadow  transition-all ${
-          theme === "dark" ? "bg-black shadow-gray-50" : "bg-white"
-        }`}
-      >
+      <div className="w-full shadow  transition-all dark:bg-black bg-white">
         <nav className="custom-width p-5 flex items-center justify-between flex-row gap-5">
           <Link href="/" className="flex items-center gap-2">
             <div className="h-12 w-12 overflow-hidden">
@@ -67,18 +65,20 @@ const Navbar: React.FC = () => {
 
           <div className="flex items-center justify-end flex-wrap gap-2">
             <div>
+              <Search />
+            </div>
+            <div>
               <Notification />
             </div>
-
-            <div className="hidden sm:block">
+            {/* <div className="hidden sm:block">
               <MediaMenus />
+            </div> */}
+            <div>
+              <ModeToggle />
             </div>
-
             <div className="hidden sm:block">
               <AuthButton />
             </div>
-            <ModeToggle />
-
             {/* responsive nav-menu's */}
             <div className="flex md:hidden">
               <ResponsiveNavmenus />
