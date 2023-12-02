@@ -7,28 +7,23 @@ const UserPostDataSchema = new mongoose.Schema({
     email: String,
     image: String,
   },
-  postBody: {
-    title: String,
-    content: String,
-  },
-  postInsights: {
-    like: Number,
-    dislike: Number,
-    share: Number,
-  },
+  title: String,
+  content: String,
+  postDate: String,
+  totalViews: Number,
+  postLikes: [
+    {
+      id: String,
+      like: Boolean,
+    },
+  ],
   postComments: [
     {
       name: String,
       email: String,
-      image: String,
       comment: String,
     },
   ],
-  postAbout: {
-    postDate: {
-      type: String,
-    },
-  },
 });
 
 const UserPostDataModel = mongoose.model("UserPostData", UserPostDataSchema);
