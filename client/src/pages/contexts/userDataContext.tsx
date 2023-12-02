@@ -9,6 +9,7 @@ interface UserDataContextProps {
   userData: any;
   currUserData: any | null;
   allPosts: any | [];
+  reRefetch: () => void;
   refetch: () => void;
   saveUserData: (newUserData: any) => Promise<void>;
   updateUserData: (updatedUserData: any) => Promise<void>;
@@ -105,7 +106,7 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const { data: allPosts } = useQuery({
+  const { data: allPosts, refetch: postRefetch } = useQuery({
     queryKey: ["allPosts"],
     queryFn: () =>
       fetch("http://localhost:8080/api/userpostdatas", {
@@ -115,9 +116,20 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
       }).then((res) => res.json()),
   });
 
+  const reRefetch = (updatedPosts) => {
+    if (updatedPosts) {
+      // Update the local state with the provided data
+      allPosts(updatedPosts);
+    } else {
+      // Perform a regular refetch
+      postRefetch();
+    }
+  };
+
   const contextValue: UserDataContextProps = {
     userData,
     currUserData,
+    reRefetch,
     allPosts,
     refetch,
     saveUserData,

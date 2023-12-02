@@ -6,7 +6,7 @@ import { useUserData } from "../contexts/userDataContext";
 
 const UserHomePage: React.FC = () => {
   const { currUserData } = useUserData();
-  console.log(currUserData);
+
   return (
     <div className="py-10">
       <div className="custom-width px-5">

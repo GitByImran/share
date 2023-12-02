@@ -9,14 +9,12 @@ import { RiSendPlaneFill } from "react-icons/ri";
 
 const CreatePost: React.FC = () => {
   const { theme } = useTheme();
-  const { userData } = useUserData();
+  const { userData, refetch } = useUserData();
   const { currUserData } = useUserData();
   const [increaseArea, setIncreaseArea] = useState<boolean>(false);
   const [uploadingPost, setUploadingPost] = useState<boolean>(false);
   const [postTitle, setPostTitle] = useState<string>("");
   const [postContent, setPostContent] = useState<string>("");
-
-  console.log(userData);
 
   const handleIncreaseInputBox = () => {
     setIncreaseArea(true);
@@ -37,15 +35,13 @@ const CreatePost: React.FC = () => {
         },
         body: JSON.stringify({
           profile: currUserData?.profile,
-          postBody: {
-            title: postTitle,
-            content: postContent,
-          },
-          postInsights: { like: 0, dislike: 0, share: 0 },
+          title: postTitle,
+          content: postContent,
+          dislike: 0,
+          share: 0,
+          postLikes: [],
           postComments: [],
-          postAbout: {
-            postDate: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
-          },
+          postDate: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
         }),
       });
 
